@@ -52,9 +52,9 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
 
 
                     boolean admintrator = ctx.formParam("admintrator") != null;
-                    boolean autor = ctx.formParam("autor") != null;
+                    boolean usuario = ctx.formParam("usuario") != null;
 
-                    Usuario usuario = new Usuario(username, nombre, password, admintrator, autor);
+                    Usuario usuario = new Usuario(username, nombre, password, admintrator, usuario);
                     fakeServices.crearUsuario(usuario);
                     ctx.redirect("/crud-simple-usuario/");
                 });
@@ -73,9 +73,9 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
 
 
                     boolean admintrator = ctx.formParam("admintrator") != null;
-                    boolean autor = ctx.formParam("autor") != null;
+                    boolean usuario = ctx.formParam("usuario") != null;
 
-                    Usuario usuario = new Usuario(username, nombre, password, admintrator, autor);
+                    Usuario usuario = new Usuario(username, nombre, password, admintrator, usuario);
                     fakeServices.crearUsuario(usuario);
                     ctx.redirect("/");
                 });
@@ -113,7 +113,7 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
 
 
                     boolean admintrator = ctx.formParam("admintrator") != null;
-                    boolean autor = ctx.formParam("autor") != null;
+                    boolean usuario = ctx.formParam("usuario") != null;
                     Usuario usuarioExistente = fakeServices.getUsuarioPorUsername(username);
 
                     if (usuarioExistente != null) {
@@ -121,7 +121,7 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                         usuarioExistente.setNombre(nombre);
                         usuarioExistente.setPassword(password);
                         usuarioExistente.setAdmintrator(admintrator);
-                        usuarioExistente.setAutor(autor);
+                        usuarioExistente.setusuario(usuario);
                         fakeServices.actualizarUsuario(usuarioExistente);
                     } else {
                         System.out.println("No se encontró el usuario con el username: " + username);

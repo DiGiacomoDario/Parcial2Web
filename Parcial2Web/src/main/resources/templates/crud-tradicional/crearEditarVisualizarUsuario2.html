@@ -32,8 +32,8 @@
             <input th:readonly="${visualizar}" th:checked="${usuario} ? ${usuario.admintrator} : false" type="checkbox"  name="admintrator" class="form-control" id="admintratorForm">
         </div>
         <div class="form-group">
-            <label for="autorForm">Es Autor</label>
-            <input th:readonly="${visualizar}" th:checked="${usuario} ? ${usuario.autor} : false" type="checkbox"  name="autor" class="form-control" id="autorForm">
+            <label for="usuarioForm">Es usuario</label>
+            <input th:readonly="${visualizar}" th:checked="${usuario} ? ${usuario.usuario} : false" type="checkbox"  name="usuario" class="form-control" id="usuarioForm">
         </div>
         &lt;!&ndash; Los botones para la creación del usuario &ndash;&gt;
         <button th:if="${!visualizar}" type="submit" class="btn btn-primary">Crear</button>

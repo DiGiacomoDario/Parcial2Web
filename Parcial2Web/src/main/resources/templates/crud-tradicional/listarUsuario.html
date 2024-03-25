@@ -21,7 +21,7 @@
             <th scope="col">Username</th>
             <th scope="col">Nombre</th>
             <th scope="col">Es Administrador</th>
-            <th scope="col">Es Autor</th>
+            <th scope="col">Es Usuario</th>
             <th scope="col">ACCIONES</th>
         </tr>
         </thead>
@@ -30,7 +30,7 @@
             <td th:text="${usuario.username}">Username</td>
             <td th:text="${usuario.nombre}">Nombre</td>
             <td th:text="${usuario.admintrator ? 'Si' : 'No'}">Es Administrador</td>
-            <td th:text="${usuario.autor ? 'Si' : 'No'}">Es Autor</td>
+            <td th:text="${usuario.usuario ? 'Si' : 'No'}">Es Usuario</td>
             <td>
                 <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/>
                 <a th:text="Eliminar" th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>

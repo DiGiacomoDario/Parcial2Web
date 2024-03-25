@@ -10,7 +10,7 @@ public class Usuario {
 
     boolean admintrator;
 
-    boolean autor;
+    boolean usuario;
 
 
 
@@ -18,12 +18,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String username, String nombre, String password, boolean admintrator, boolean autor) {
+    public Usuario(String username, String nombre, String password, boolean admintrator, boolean usuario) {
         this.username = username;
         this.nombre = nombre;
         this.password = password;
         this.admintrator = admintrator;
-        this.autor = autor;
+        this.usuario = usuario;
     }
 
 
@@ -60,12 +60,12 @@ public class Usuario {
         this.admintrator = admintrator;
     }
 
-    public boolean isAutor() {
-        return autor;
+    public boolean isusuario() {
+        return usuario;
     }
 
-    public void setAutor(boolean autor) {
-        this.autor = autor;
+    public void setusuario(boolean usuario) {
+        this.usuario = usuario;
     }
 
 

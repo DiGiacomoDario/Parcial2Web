@@ -50,18 +50,18 @@ public class CookiesSesionesControlador extends BaseControlador {
         admin.setUsername("admin");
         admin.setPassword("123");
         admin.setAdmintrator(true);
-        admin.setAutor(false);
+        admin.setusuario(false);
         fakeServices.crearUsuario(admin);
     }
 
-    public void crearUsuarioAutorPorDefecto() {
-        Usuario autor = new Usuario();
-        autor.setNombre("autor");
-        autor.setUsername("autor");
-        autor.setPassword("autor");
-        autor.setAdmintrator(false);
-        autor.setAutor(true);
-        fakeServices.crearUsuario(autor);
+    public void crearUsuariousuarioPorDefecto() {
+        Usuario usuario = new Usuario();
+        usuario.setNombre("usuario");
+        usuario.setUsername("usuario");
+        usuario.setPassword("usuario");
+        usuario.setAdmintrator(false);
+        usuario.setusuario(true);
+        fakeServices.crearUsuario(usuario);
     }
 
 

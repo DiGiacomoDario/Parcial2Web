@@ -9,6 +9,6 @@
 <h2>Username: ${usuario.username}</h2>
 <h2>Contraseña: ${usuario.password}</h2>
 <h2>Administrador: ${usuario.admintrator?string("Si", "No")}</h2>
-<h2>Autor: ${usuario.autor?string("Si", "No")}</h2>
+<h2>usuario: ${usuario.usuario?string("Si", "No")}</h2>
 </body>
 </html>

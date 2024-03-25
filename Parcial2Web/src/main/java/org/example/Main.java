@@ -105,14 +105,14 @@ public class Main {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+id+"\n\n\n\n\n\n\n\n\n\n\n\n");
 
 
-            Usuario autor = ctx.sessionAttribute("usuario");
+            Usuario usuario = ctx.sessionAttribute("usuario");
 
             String comentario = ctx.formParam("comentario");
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+comentario+"\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+autor.getUsername()+"\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+usuario.getUsername()+"\n\n\n\n\n\n\n\n\n\n\n\n");
 
 
-            // Comentario nuevoComentario = new Comentario(id,comentario, autor, articulo);
+            // Comentario nuevoComentario = new Comentario(id,comentario, usuario, articulo);
 
 
             // articulo.getListaComentarios().add(nuevoComentario);
