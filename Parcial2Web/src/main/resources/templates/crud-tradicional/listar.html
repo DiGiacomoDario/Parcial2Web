@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/templates/crud-tradicional/plantilla.html::head}">
+    <title>Listar</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4" th:text="${tituloPag}">Listar</h1>
+        <p class="lead">LISTADO DE LOS ARTICULOS</p>
+        <a href="/inicio" class="btn btn-primary">Regresar al inicio</a>
+<!--        <a href="/crud-simple/listarUsuarios" class="btn btn-primary">Administrar Usuarios</a>-->
+
+    </div>
+
+    <a href="/crud-simple/crear" class="btn btn-primary">NUEVO ARTICULO</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">TITULO</th>
+            <th scope="col">CUERPO</th>
+            <th scope="col">ETIQUETAS</th>
+            <th scope="col">ACCIONES</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="articulo : ${lista}">
+            <td th:text="${articulo.id}"><a th:href="'visualizar/'+${articulo.id}">Ver</a></td>
+            <td th:text="${articulo.titulo}">Título</td>
+            <td th:text="${articulo.cuerpo}">Cuerpo</td>
+            <td th:text="${articulo.listaEtiquetas}">Lista Etiquetas</td>
+
+            <td>
+                <a th:text="Visualizar" th:href="'visualizar/'+${articulo.id}" class="btn btn-primary btn-sm"/> |
+                <a th:text="Editar" th:href="'editar/'+${articulo.id}" class="btn btn-secondary btn-sm"/> |
+                <a th:text="Eliminar" th:href="'eliminar/'+${articulo.id}" class="btn btn-danger btn-sm"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Incluyendo la parte de JavaScript del template -->
+<div th:replace="/templates/crud-tradicional/plantilla.html::javascript"></div>
+
+</body>
+</html>
