@@ -24,11 +24,16 @@
         </thead>
         <tbody>
         <tr th:each="usuario : ${lista}">
-            <td th:text="${usuario.username}">Username</td>
-
+            <td th:text="${usuario.username}">Nombre</td>
+            <td th:text="${usuario.username}">Sector</td>
+            <td th:text="${usuario.username}">Nivel escolar</td>
+            <td th:text="${usuario.username}">Usuario</td>
+            <td th:text="${usuario.username}">Latitud</td>
+            <td th:text="${usuario.username}">Longitud</td>
+            <td th:text="${usuario.username}">Estado</td>
             <td>
-                <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/>
-                <a th:text="Eliminar" th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>
+                <a  th:href="'editar/'+${usuario.username}"  class="btn btn-secondary btn-sm"/>Editar</a>
+                <a  th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>Eliminar</a>
             </td>
         </tr>
         </tbody>
