@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<div class="navbar navbar-dark bg-primary">
+    <h1 class="navbar-brand">Blog de Art&iacute;culos</h1>
+    <div class="btn-group">
+        <a href="/" class="btn btn-light">Logout</a>
+    </div>
+</div>
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center">
@@ -21,7 +27,7 @@
             <button class="btn btn-primary btn-block">Mapa</button>
         </div>
         <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <button class="btn btn-primary btn-block">Administraci&oacute;n de Registros</button>
+            <button class="btn btn-primary btn-block" onclick="window.location.href='registros.html'">Administraci&oacute;n de Registros</button>
         </div>
 
         <!-- <div class="col-12 col-md-6 col-lg-4 mb-4" ${usuarioLogueado != null && usuarioLogueado.admintrator}">

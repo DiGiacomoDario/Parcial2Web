@@ -32,7 +32,7 @@
             <td th:text="${usuario.admintrator ? 'Si' : 'No'}">Es Administrador</td>
             <td th:text="${usuario.autor ? 'Si' : 'No'}">Es Autor</td>
             <td>
-                <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/> |
+                <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/>
                 <a th:text="Eliminar" th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>
             </td>
         </tr>
