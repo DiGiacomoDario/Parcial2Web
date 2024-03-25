@@ -35,7 +35,7 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Listado de USUARIOS");
                     modelo.put("lista", lista);
-                    ctx.render("/crud-tradicional/listarUsuario.html", modelo);
+                    ctx.render("/templates/crud-tradicional/listarUsuario.html", modelo);
                 });
 
                 get("/crear", ctx -> {
