@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--Incluyendo el namespace de thymeleaf-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Titulo por Defecto</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Cuerpo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="articulo : ${listaArticulo}">
+        <td th:text="${articulo.id}">20011136</td>
+        <td th:text="${articulo.titulo}">Silla Plastica</td>
+        <td th:text="${articulo.cuerpo}">Para toda la familia</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/templates/crud-tradicional/plantilla.html::head">
+    <title>Listar Usuarios</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4" th:text="${tituloPag}">Listar Usuarios</h1>
+        <p class="lead">LISTADO DE LOS USUARIOS</p>
+        <a href="/inicio" class="btn btn-primary">Regresar al inicio</a>
+        <!--        <a href="/crud-simple/listarUsuarios" class="btn btn-primary">Administrar Usuarios</a>-->
+
+    </div>
+
+    <a href="/crud-simple-usuario/crear" class="btn btn-primary">NUEVO USUARIO</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Es Administrador</th>
+            <th scope="col">Es Autor</th>
+            <th scope="col">ACCIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${lista}">
+            <td th:text="${usuario.username}">Username</td>
+            <td th:text="${usuario.nombre}">Nombre</td>
+            <td th:text="${usuario.admintrator ? 'Si' : 'No'}">Es Administrador</td>
+            <td th:text="${usuario.autor ? 'Si' : 'No'}">Es Autor</td>
+            <td>
+                <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/> |
+                <a th:text="Eliminar" th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Incluyendo la parte de JavaScript del template -->
+<div th:replace="/templates/crud-tradicional/plantilla.html::javascript"></div>
+
+</body>
+</html>
