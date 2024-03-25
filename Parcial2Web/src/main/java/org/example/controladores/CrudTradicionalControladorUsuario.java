@@ -54,8 +54,8 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     boolean admintrator = ctx.formParam("admintrator") != null;
                     boolean usuario = ctx.formParam("usuario") != null;
 
-                    Usuario usuario = new Usuario(username, nombre, password, admintrator, usuario);
-                    fakeServices.crearUsuario(usuario);
+                    Usuario usuarios = new Usuario(username, nombre, password, admintrator, usuario);
+                    fakeServices.crearUsuario(usuarios);
                     ctx.redirect("/crud-simple-usuario/");
                 });
 
@@ -75,8 +75,8 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     boolean admintrator = ctx.formParam("admintrator") != null;
                     boolean usuario = ctx.formParam("usuario") != null;
 
-                    Usuario usuario = new Usuario(username, nombre, password, admintrator, usuario);
-                    fakeServices.crearUsuario(usuario);
+                    Usuario usuarios = new Usuario(username, nombre, password, admintrator, usuario);
+                    fakeServices.crearUsuario(usuarios);
                     ctx.redirect("/");
                 });
 
