@@ -8,9 +8,9 @@ public class Usuario {
     String nombre;
     String password;
 
-    boolean admintrator;
+    protected boolean admintrator;
 
-    boolean usuario;
+    protected boolean usuario;
 
 
 
