@@ -50,7 +50,7 @@ public class CookiesSesionesControlador extends BaseControlador {
         admin.setUsername("admin");
         admin.setPassword("123");
         admin.setAdmintrator(true);
-        admin.setusuario(false);
+        admin.setUsuario(false);
         fakeServices.crearUsuario(admin);
     }
 
@@ -60,7 +60,7 @@ public class CookiesSesionesControlador extends BaseControlador {
         usuario.setUsername("usuario");
         usuario.setPassword("usuario");
         usuario.setAdmintrator(false);
-        usuario.setusuario(true);
+        usuario.setUsuario(true);
         fakeServices.crearUsuario(usuario);
     }
 

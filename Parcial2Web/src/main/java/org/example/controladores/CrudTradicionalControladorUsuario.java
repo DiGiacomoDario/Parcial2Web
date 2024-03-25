@@ -121,7 +121,7 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                         usuarioExistente.setNombre(nombre);
                         usuarioExistente.setPassword(password);
                         usuarioExistente.setAdmintrator(admintrator);
-                        usuarioExistente.setusuario(usuario);
+                        usuarioExistente.setUsuario(usuario);
                         fakeServices.actualizarUsuario(usuarioExistente);
                     } else {
                         System.out.println("No se encontró el usuario con el username: " + username);

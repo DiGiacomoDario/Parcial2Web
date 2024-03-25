@@ -60,11 +60,11 @@ public class Usuario {
         this.admintrator = admintrator;
     }
 
-    public boolean isusuario() {
+    public boolean isUsuario() {
         return usuario;
     }
 
-    public void setusuario(boolean usuario) {
+    public void setUsuario(boolean usuario) {
         this.usuario = usuario;
     }
 
