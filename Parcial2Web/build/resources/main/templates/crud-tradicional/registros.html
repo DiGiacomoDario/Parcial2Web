@@ -32,19 +32,16 @@
             <td th:text="${registro.longitud}">Longitud</td>
             <td th:text="${registro.estado}">Estado</td>
             <td>
-                <a th:text="Editar" th:href="'editar/'+${registro.id}"  class="btn btn-secondary btn-sm"/>Editar</a>
-                <a th:text="Eliminar" th:href="'eliminar/'+${registro.id}" class="btn btn-danger btn-sm"/>Eliminar</a>
+                <a  th:href="'editar/'+${registro.id}"  class="btn btn-secondary btn-sm"/>Editar</a>
+                <a  th:href="'eliminar/'+${registro.id}" class="btn btn-danger btn-sm"/>Eliminar</a>
             </td>
         </tr>
         </tbody>
 
     </table>
-    <a href="/crud-simple-registro/listar" class="btn btn-primary btn-block">Registros</a>
-    <a href="/inicio" class="btn btn-secondary btn-block">Atr&aacute;s</a>
-
-
+    <button class="btn btn-primary" onclick="window.location.href='formularioCaptura.html'">Registrar</button>
+    <button class="btn btn-secondary" onclick="window.location.href='/inicio'">Atrás</button>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
