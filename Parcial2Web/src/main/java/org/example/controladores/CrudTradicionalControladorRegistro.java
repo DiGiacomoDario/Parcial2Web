@@ -17,6 +17,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
         super(app);
     }
 
+
     @Override
     public void aplicarRutas() {
         app.routes(() -> {
@@ -34,28 +35,31 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     ctx.render("/templates/crud-tradicional/listarRegistro.html", modelo);
                 });
 
+
                 get("/crear", ctx -> {
+
+
                     Map<String, Object> modelo = new HashMap<>();
+
                     modelo.put("titulo", "FORMULARIO CREACION REGISTRO");
                     modelo.put("accion", "/crud-simple-registro/crear");
                     ctx.render("/templates/crud-tradicional/crearEditarVisualizarRegistro.html", modelo);
                 });
 
                 post("/crear", ctx -> {
-                    int id = (ctx.formParamAsClass("id", int.class).get());
+                    String id = (ctx.formParam("id"));
+                    String nombre = ctx.formParam("nombre");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
+                    String usuario = ctx.formParam("usuario");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
-                    String username = ctx.formParam("username");
-                    String nombre = ctx.formParam("nombre");
-                    String password = ctx.formParam("password");
-                    boolean admintrator = ctx.formParam("admintrator") != null;
-                    boolean registro = ctx.formParam("registro") != null;
 
-                    Registro registros = new Registro( id, sector, nivelEscolar, latitud, longitud, estado);
+                    Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","19", false);
+                    //Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","admin","19", "18", false);
+                   // Registro registros = new Registro( id,sector, nivelEscolar,latitud, longitud, estado);
                     //imprime el registro
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registros+"\n\n\n\n\n\n\n\n\n\n");
                     fakeServices.crearRegistro(registros);
@@ -66,7 +70,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
 
                 get("/visualizar/{id}", ctx -> {
-                    Registro registro = fakeServices.getRegistroPorId(Integer.parseInt(ctx.pathParam("id")));
+                    Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Formulario Visualizar Registro " + registro.getUsername());
                     modelo.put("registro", registro);
@@ -78,7 +82,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
 
                 get("/editar/{id}", ctx -> {
-                    Registro registro = fakeServices.getRegistroPorId(Integer.parseInt(ctx.pathParamAsClass("id", String.class).get()));
+                    Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
                     //
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Formulario Editar Registro " + registro.getUsername());
@@ -102,7 +106,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
-                    Registro registroExistente = fakeServices.getRegistroPorId(id);
+                    Registro registroExistente = fakeServices.getRegistroPorId(String.valueOf(id));
 
                     if (registroExistente != null) {
                         registroExistente.setSector(nombre);
@@ -123,7 +127,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
 
                 get("/eliminar/{id}", ctx -> {
-                    fakeServices.eliminandoRegistro(ctx.pathParamAsClass("id",int.class).get());
+                    fakeServices.eliminandoRegistro((ctx.pathParam("id")));
                     ctx.redirect("/crud-simple-registro/");
                 });
 

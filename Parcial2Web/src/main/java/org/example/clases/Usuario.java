@@ -26,6 +26,12 @@ public class Usuario {
         this.usuario = usuario;
     }
 
+    public Usuario(String id, String nombre, String usuario) {
+        this.username = id;
+        this.nombre = nombre;
+        this.password = usuario;
+
+    }
 
 
     public String getUsername() {

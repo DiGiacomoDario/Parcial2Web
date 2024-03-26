@@ -1,21 +1,22 @@
 package org.example.clases;
 
 public class Registro extends Usuario{
-
-    int id;
+    private static long contador = 0;
+    String id;
     String sector;
     String nivelEscolar;
     String latitud;
     String longitud;
     boolean estado;
 
-    public Registro() {
 
-    }
 
     //crea el constructor
-    public Registro(int id, String sector, String nivelEscolar, String latitud, String longitud, boolean estado) {
-        this.id = id;
+
+
+    public Registro(String id, String sector, String nivelEscolar, String latitud, String longitud, boolean estado) {
+
+        this.id = String.valueOf(++contador);
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
         this.latitud = latitud;
@@ -24,11 +25,11 @@ public class Registro extends Usuario{
     }
 
     //getters y setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -75,7 +76,7 @@ public class Registro extends Usuario{
     @Override
     public String toString() {
         return "Registro{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", sector='" + sector + '\'' +
                 ", nivelEscolar='" + nivelEscolar + '\'' +
                 ", latitud='" + latitud + '\'' +

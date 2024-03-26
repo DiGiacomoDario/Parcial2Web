@@ -1,57 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulario de Captura</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/templates/crud-tradicional/plantilla.html::head">
+    <title th:text="${titulo}">Formulario de Captura</title>
 </head>
 <body>
-<h1 class="text-center">Formulario de captura</h1>
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-            <form enctype="application/x-www-form-urlencoded" method="post" th:attr="action=${accion}" >
-                <!-- campos del formulario -->
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="sector">Sector:</label>
-                    <input type="text" class="form-control" id="sector" required>
-                </div>
-                <div class="form-group">
-                    <label for="nivelEscolar">Nivel Escolar:</label>
-                    <select class="form-control" id="nivelEscolar">
-                        <option>B&aacute;sico</option>
-                        <option>Medio</option>
-                        <option>Grado Universitario</option>
-                        <option>Postgrado</option>
-                        <option>Grado</option>
-                    </select>
-                </div>
-                <!--                <a th:text="Editar" th:href="'editar/'+${usuario.username}" class="btn btn-secondary btn-sm"/>-->
-                <!--                <a th:text="Eliminar" th:href="'eliminar/'+${usuario.username}" class="btn btn-danger btn-sm"/>-->
-
-                <a href="/crud-simple-registro/crear" class="btn btn-primary btn-block">Guardar</a>
-                <a href="/crud-simple-registro/listar" class="btn btn-primary btn-block">Registros</a>
-                <a href="/inicio" class="btn btn-secondary btn-block">Atr&aacute;s</a>
-<!--                <button type="submit" class="btn btn-primary btn-block" onclick="window.location.href='/crud-simple-registro/crear'">Guardar</button>-->
-<!--                <button type="button" class="btn btn-secondary btn-block" onclick="window.location.href='/inicio'">Atr&acute;</button>-->
-<!--                <button class="btn btn-primary btn-block" onclick="window.location.href='/crud-simple-registro/listar'">Registros</button>-->
-
-
-
-
-                <!--                <button class="btn btn-primary btn-block" onclick="window.location.href='listarRegistro.html'">Registros</button>-->
-            </form>
-        </div>
+    <div class="jumbotron">
+        <h1 class="display-4" th:text="${titulo}">....</h1>
     </div>
+
+    <form enctype="application/x-www-form-urlencoded" method="post" th:attr="action=${accion}" >
+
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.id} : ''" type="text" class="form-control" id="id" required>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.nombre} : ''" type="text" class="form-control" id="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="sector">Sector:</label>
+            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.sector} : ''" type="text" class="form-control" id="sector" required>
+        </div>
+        <div class="form-group">
+            <label for="nivelEscolar">Nivel Escolar:</label>
+            <select th:readonly="${visualizar}" th:value="${registro} ? ${registro.nivelEscolar} : ''" class="form-control" id="nivelEscolar">
+                <option>B&aacute;sico</option>
+                <option>Medio</option>
+                <option>Grado Universitario</option>
+                <option>Postgrado</option>
+                <option>Grado</option>
+            </select>
+        </div>
+
+        <button th:if="${!visualizar}" type="submit" class="btn btn-primary btn-block">Guardar</button>
+        <a href="/crud-simple-registro/listar" class="btn btn-primary btn-block">Registros</a>
+        <a href="/inicio" class="btn btn-secondary btn-block">Atr&aacute;s</a>
+    </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<div th:replace="/templates/crud-tradicional/plantilla.html::javascript">
+
+</div>
+
 </body>
 </html>

@@ -77,14 +77,14 @@ public class ApiControlador extends BaseControlador {
                     });
 
                     get("/{id}", ctx -> {
-                        ctx.json(fakeServices.getRegistroPorId(ctx.pathParamAsClass("id", Integer.class).get()));
+                        ctx.json(fakeServices.getRegistroPorId((ctx.pathParamAsClass("id", String.class).get())));
                     });
 
                     post("/", ctx -> {
                         //parseando la informacion del POJO debe venir en formato json.
-                        Usuario tmp = ctx.bodyAsClass(Registro.class);
+                        Registro tmp = ctx.bodyAsClass(Registro.class);
                         //creando.
-                        ctx.json(fakeServices.crearRegistro((Registro) tmp));
+                        ctx.json(fakeServices.crearRegistro(tmp));
                     });
 
                     put("/", ctx -> {
@@ -101,7 +101,7 @@ public class ApiControlador extends BaseControlador {
 
                     delete("/{id}", ctx -> {
                         //creando.
-                        ctx.json(fakeServices.eliminandoRegistro(ctx.pathParamAsClass("id", Integer.class).get()));
+                        ctx.json(fakeServices.eliminandoRegistro((ctx.pathParamAsClass("id", String.class).get())));
                     });
                 });
 

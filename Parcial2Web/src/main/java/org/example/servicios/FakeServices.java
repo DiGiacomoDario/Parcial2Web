@@ -68,9 +68,9 @@ public class FakeServices {
 
     //crea el metodo getRegistroPorId  que recibe un int id y retorna un objeto de tipo Registro
 
-    public Registro getRegistroPorId(int id) {
+    public Registro getRegistroPorId(String id) {
         return registros.stream()
-                .filter(u -> u.getId() == id)
+                .filter(u -> Objects.equals(u.getId(), id))
                 .findFirst()
                 .orElse(null);
     }
@@ -81,7 +81,7 @@ public class FakeServices {
     public Object actualizarRegistro(Registro registro) {
         int index = -1;
         for (int i = 0; i < registros.size(); i++) {
-            if (registros.get(i).getId() == registro.getId()) {
+            if (Objects.equals(registros.get(i).getId(), registro.getId())) {
                 index = i;
                 break;
             }
@@ -93,7 +93,7 @@ public class FakeServices {
     }
 
     //crea el metodo eliminarRegistro que recibe un int id y retorna un objeto de tipo Object
-    public Object eliminandoRegistro(int id) {
+    public Object eliminandoRegistro(String id) {
         registros.removeIf(u -> u.getId() == id);
         return null;
     }
