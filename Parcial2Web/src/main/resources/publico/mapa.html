@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa</title>
+    <style>
+
+        #map {
+            height: 700px;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="map">
+
+    </div>
+
+    <script>
+        function initMap(){
+            var coord = {lat:19.443552 ,lng: -70.683573};
+            var map = new google.maps.Map(document.getElementById('map'),{
+                zoom: 10,
+                center: coord
+            });
+            var marker = new google.maps.Marker({
+                position: coord,
+                map: map
+            });
+        }
+    </script>
+
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF1SFoX6uygyMiG63A-bRn4RqYgz48sQo&libraries=places&callback=initMap"
+
+    ></script>
+    <div class="center-button">
+        <button class="btn btn-primary btn-lg" onclick="window.history.back();">Atrás</button>
+    </div>
+
+</body>
+</html>
