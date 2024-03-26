@@ -1,5 +1,6 @@
 package org.example.controladores;
 
+import org.example.clases.Registro;
 import org.example.clases.Usuario;
 
 import org.example.servicios.FakeServices;
@@ -65,6 +66,46 @@ public class ApiControlador extends BaseControlador {
                         ctx.json(fakeServices.eliminandoUsuario(ctx.pathParam("username")));
                     });
                 });
+
+                path("/registro", () -> {
+                    after(ctx -> {
+                        ctx.header("Content-Type", "application/json");
+                    });
+
+                    get("/", ctx -> {
+                        ctx.json(fakeServices.listarRegistros());
+                    });
+
+                    get("/{id}", ctx -> {
+                        ctx.json(fakeServices.getRegistroPorId(ctx.pathParamAsClass("id", Integer.class).get()));
+                    });
+
+                    post("/", ctx -> {
+                        //parseando la informacion del POJO debe venir en formato json.
+                        Usuario tmp = ctx.bodyAsClass(Registro.class);
+                        //creando.
+                        ctx.json(fakeServices.crearRegistro((Registro) tmp));
+                    });
+
+                    put("/", ctx -> {
+                        //parseando la informacion del POJO.
+                        Registro tmp = ctx.bodyAsClass(Registro.class);
+                        //creando.
+                        try {
+                            ctx.json(fakeServices.actualizarRegistro(tmp));
+                        } catch (NoExisteUsuarioException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    });
+
+                    delete("/{id}", ctx -> {
+                        //creando.
+                        ctx.json(fakeServices.eliminandoRegistro(ctx.pathParam("id")));
+                    });
+                });
+
+
             });
         });
         app.exception(NoExisteUsuarioException.class, (exception, ctx) -> {
