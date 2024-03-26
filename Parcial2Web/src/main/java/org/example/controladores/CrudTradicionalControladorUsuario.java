@@ -7,11 +7,7 @@ import org.example.servicios.FakeServices;
 import org.example.util.BaseControlador;
 import io.javalin.Javalin;
 
-
 import java.util.*;
-
-
-
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class CrudTradicionalControladorUsuario extends BaseControlador {

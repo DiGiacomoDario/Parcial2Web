@@ -76,35 +76,39 @@ public class FakeServices {
     }
 
 
-    public Object actualizarRegistro(Registro usuario) {
+    //crea el metodo actualizarRegistro que recibe un objeto de tipo Registro y retorna un objeto de tipo Object
+
+    public Object actualizarRegistro(Registro registro) {
         int index = -1;
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getUsername().equals(usuario.getUsername())) {
+        for (int i = 0; i < registros.size(); i++) {
+            if (registros.get(i).getId() == registro.getId()) {
                 index = i;
                 break;
             }
         }
         if (index != -1) {
-            usuarios.set(index, usuario);
+            registros.set(index, registro);
         }
         return null;
     }
 
-    public Object eliminandoRegistro(String username) {
-        usuarios.removeIf(u -> u.getUsername().equals(username));
+    //crea el metodo eliminarRegistro que recibe un int id y retorna un objeto de tipo Object
+    public Object eliminandoRegistro(int id) {
+        registros.removeIf(u -> u.getId() == id);
         return null;
     }
 
-    public Object crearRegistro(Registro usuario) {
-        usuarios.add(usuario);
+    //crea el metodo crearRegistro que recibe un objeto de tipo Registro y retorna un objeto de tipo Object
+    public Object crearRegistro(Registro registro) {
+        registros.add(registro);
         return null;
     }
 
+
+    //crea el metodo listarRegistros que retorna una lista de objetos de tipo Registro
     public List<Registro> listarRegistros() {
         return new ArrayList<>(registros);
     }
-
-
 /*
     //crea el metodo autenticarRegistro que reciba
     public Registro autenticarRegistro(String username, String password) {

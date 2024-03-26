@@ -145,6 +145,7 @@ public class Main {
 
 
         new CrudTradicionalControladorUsuario(app).aplicarRutas();
+        new CrudTradicionalControladorRegistro(app).aplicarRutas();
 
 
     }

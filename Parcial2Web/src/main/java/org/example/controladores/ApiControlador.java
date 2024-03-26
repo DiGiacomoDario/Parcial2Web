@@ -101,7 +101,7 @@ public class ApiControlador extends BaseControlador {
 
                     delete("/{id}", ctx -> {
                         //creando.
-                        ctx.json(fakeServices.eliminandoRegistro(ctx.pathParam("id")));
+                        ctx.json(fakeServices.eliminandoRegistro(ctx.pathParamAsClass("id", Integer.class).get()));
                     });
                 });
 
