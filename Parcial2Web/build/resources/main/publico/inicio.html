@@ -16,7 +16,12 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center">
-            <h1 id="nombreUsuario">Nombre del Usuario</h1>
+<!--            // coloca un header con el nombre del usuario logueado usando thymeleaf-->
+            <h1 th:text="${session.usuario == null ? 'Bienvenido Invitado' : 'Bienvenido '+session.usuario.nombre}">Nombre del usuario</h1>
+
+
+
+
         </div>
     </div>
     <div class="row justify-content-around align-items-center mt-5">

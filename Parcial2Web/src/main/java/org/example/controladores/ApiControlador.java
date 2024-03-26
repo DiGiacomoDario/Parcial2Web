@@ -80,6 +80,7 @@ public class ApiControlador extends BaseControlador {
                         ctx.json(fakeServices.getRegistroPorId((ctx.pathParamAsClass("id", String.class).get())));
                     });
 
+
                     post("/", ctx -> {
                         //parseando la informacion del POJO debe venir en formato json.
                         Registro tmp = ctx.bodyAsClass(Registro.class);

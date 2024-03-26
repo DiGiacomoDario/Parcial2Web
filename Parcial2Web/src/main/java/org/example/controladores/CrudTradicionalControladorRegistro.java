@@ -105,14 +105,14 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     String nombre = ctx.formParam("nombre");
                     String password = ctx.formParam("password");
 
-                    int id = (ctx.formParamAsClass("id", int.class).get());
+                    String id = (ctx.formParam("id"));
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
-                    Registro registroExistente = fakeServices.getRegistroPorId(String.valueOf(id));
+                    Registro registroExistente = fakeServices.getRegistroPorId(id);
 
                     if (registroExistente != null) {
                         registroExistente.setSector(nombre);
