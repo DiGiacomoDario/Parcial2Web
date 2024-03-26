@@ -12,20 +12,18 @@
 
     <form enctype="application/x-www-form-urlencoded" method="post" th:attr="action=${accion}" >
 
+
         <div class="form-group">
-            <label for="id">Id:</label>
-            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.id} : ''" type="text" class="form-control" id="id" required>
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.nombre} : ''" type="text" class="form-control" id="nombre" required>
+            <label for="nombreForm">Nombre:</label>
+            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.usuario.nombre} : ''" type="text" name="nombre" class="form-control" id="nombreForm" required>
         </div>
         <div class="form-group">
-            <label for="sector">Sector:</label>
-            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.sector} : ''" type="text" class="form-control" id="sector" required>
+            <label for="sectorForm">Sector:</label>
+            <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.sector} : ''" type="text" name="sector" class="form-control" id="sectorForm" required>
         </div>
         <div class="form-group">
-            <label for="nivelEscolar">Nivel Escolar:</label>
-            <select th:readonly="${visualizar}" th:value="${registro} ? ${registro.nivelEscolar} : ''" class="form-control" id="nivelEscolar">
+            <label for="nivelEscolarForm">Nivel Escolar:</label>
+            <select th:readonly="${visualizar}" th:value="${registro} ? ${registro.nivelEscolar} : ''" class="form-control" name="nivelEscolar" id="nivelEscolarForm">
                 <option>B&aacute;sico</option>
                 <option>Medio</option>
                 <option>Grado Universitario</option>
@@ -37,6 +35,7 @@
         <button th:if="${!visualizar}" type="submit" class="btn btn-primary btn-block">Guardar</button>
         <a href="/crud-simple-registro/listar" class="btn btn-primary btn-block">Registros</a>
         <a href="/inicio" class="btn btn-secondary btn-block">Atr&aacute;s</a>
+
     </form>
 </div>
 

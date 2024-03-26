@@ -49,7 +49,7 @@ public class FakeServices {
 
     public Object crearUsuario(Usuario usuario) {
         usuarios.add(usuario);
-        return null;
+        return usuario;
     }
 
     public List<Usuario> listarUsuarios() {
@@ -94,14 +94,14 @@ public class FakeServices {
 
     //crea el metodo eliminarRegistro que recibe un int id y retorna un objeto de tipo Object
     public Object eliminandoRegistro(String id) {
-        registros.removeIf(u -> u.getId() == id);
+        registros.removeIf(u -> Objects.equals(u.getId(), id));
         return null;
     }
 
     //crea el metodo crearRegistro que recibe un objeto de tipo Registro y retorna un objeto de tipo Object
     public Object crearRegistro(Registro registro) {
         registros.add(registro);
-        return null;
+        return registro;
     }
 
 

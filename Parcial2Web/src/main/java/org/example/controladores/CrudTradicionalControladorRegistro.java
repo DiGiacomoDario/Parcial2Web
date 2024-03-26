@@ -3,6 +3,7 @@ package org.example.controladores;
 
 
 import org.example.clases.Registro;
+import org.example.clases.Usuario;
 import org.example.servicios.FakeServices;
 import org.example.util.BaseControlador;
 import io.javalin.Javalin;
@@ -47,33 +48,38 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                 });
 
                 post("/crear", ctx -> {
-                    String id = (ctx.formParam("id"));
-                    String nombre = ctx.formParam("nombre");
+                    Usuario usuario = ctx.sessionAttribute("usuario");
+
+                    // Obtén el usuario actualmente autenticado
+                    fakeServices.getUsuarioPorUsername(ctx.sessionAttribute("username"));
+                    //imprime el usuario actualmente autenticado
+                    System.out.println("\n\n\n\n\n\nUsuario autenticadddo: " + usuario);
+                    if (usuario == null) {
+
+                        ctx.redirect("/");
+                        return;
+                    }
+
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
-                    String usuario = ctx.formParam("usuario");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
+                    Registro registro = new Registro("", usuario.getNombre(), sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
+                    registro.setUsuario(usuario);
 
-                    Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","19", false);
-                    //Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","admin","19", "18", false);
-                   //Registro registros = new Registro( id,sector, nivelEscolar,latitud, longitud, estado);
-                    //imprime el registro
-                    System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registros+"\n\n\n\n\n\n\n\n\n\n");
-                    fakeServices.crearRegistro(registros);
+                    System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registro+"\n\n\n\n\n\n\n\n\n\n");
+                    fakeServices.crearRegistro(registro);
                     ctx.redirect("/crud-simple-registro/");
                 });
-
 
 
 
                 get("/visualizar/{id}", ctx -> {
                     Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
                     Map<String, Object> modelo = new HashMap<>();
-                    modelo.put("titulo", "Formulario Visualizar Registro " + registro.getUsername());
-                    modelo.put("registro", registro);
+                    modelo.put("titulo", "Formulario Visualizar Registro " + registro.getUsuario());
                     modelo.put("visualizar", true);
                     modelo.put("accion", "/crud-simple-registro/");
                     ctx.render("/templates/crud-tradicional/crearEditarVisualizarRegistro.html", modelo);
@@ -85,7 +91,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
                     //
                     Map<String, Object> modelo = new HashMap<>();
-                    modelo.put("titulo", "Formulario Editar Registro " + registro.getUsername());
+                    modelo.put("titulo", "Formulario Editar Registro " + registro.getUsuario());
                     modelo.put("registro", registro);
                     modelo.put("accion", "/crud-simple-registro/editar");
 

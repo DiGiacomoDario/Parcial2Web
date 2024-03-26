@@ -24,16 +24,16 @@
         </thead>
         <tbody>
         <tr th:each="registro : ${lista}">
-            <td th:text="${registro.nombre}">Nombre</td>
+            <td th:text="${registro.usuario.nombre}">Nombre</td>
             <td th:text="${registro.sector}">Sector</td>
             <td th:text="${registro.nivelEscolar}">Nivel escolar</td>
-            <td th:text="${registro.username}">Usuario</td>
+            <td th:text="${registro.usuario.username}">Usuario</td>
             <td th:text="${registro.latitud}">Latitud</td>
             <td th:text="${registro.longitud}">Longitud</td>
             <td th:text="${registro.estado}">Estado</td>
             <td>
-                <a th:text="Editar" th:href="'editar/'+${registro.id}"  class="btn btn-secondary btn-sm"/>Editar</a>
-                <a th:text="Eliminar" th:href="'eliminar/'+${registro.id}" class="btn btn-danger btn-sm"/>Eliminar</a>
+                <a th:text="Editar" th:href="'editar/'+${registro.id}"  class="btn btn-secondary btn-sm"/></a>
+                <a th:text="Eliminar" th:href="'eliminar/'+${registro.id}" class="btn btn-danger btn-sm"/></a>
             </td>
         </tr>
         </tbody>
