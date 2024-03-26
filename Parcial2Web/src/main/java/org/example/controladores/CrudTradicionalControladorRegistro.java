@@ -57,9 +57,9 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     boolean estado = ctx.formParam("estado") != null;
 
 
-                    Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","19", false);
+                    //Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","19", false);
                     //Registro registros = new Registro( "1", "Cristian","La loteria", "Grado","admin","19", "18", false);
-                   // Registro registros = new Registro( id,sector, nivelEscolar,latitud, longitud, estado);
+                   Registro registros = new Registro( id,sector, nivelEscolar,latitud, longitud, estado);
                     //imprime el registro
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registros+"\n\n\n\n\n\n\n\n\n\n");
                     fakeServices.crearRegistro(registros);
