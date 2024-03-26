@@ -11,7 +11,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
-            <form>
+            <form enctype="application/x-www-form-urlencoded" method="post" th:attr="action=${accion}" >
+                <!-- campos del formulario -->
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" id="nombre" required>
@@ -31,8 +32,8 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-                <button class="btn btn-primary btn-block" onclick="window.location.href='registros.html'">Registros</button>
                 <button type="button" class="btn btn-secondary btn-block" onclick="window.history.back();">Atrás</button>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='registros.html'">Registros</button>
             </form>
         </div>
     </div>

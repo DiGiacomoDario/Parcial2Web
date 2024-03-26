@@ -5,8 +5,8 @@ import java.util.*;
 
 import io.javalin.http.staticfiles.Location;
 
+import org.example.clases.Registro;
 import org.example.clases.Usuario;
-
 import org.example.controladores.*;
 import org.example.servicios.FakeServices;
 
