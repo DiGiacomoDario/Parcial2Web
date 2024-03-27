@@ -31,6 +31,8 @@ public class Registro{
 
     // Resto del código de la clase Registro
 
+
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -45,6 +47,14 @@ public class Registro{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getSector() {

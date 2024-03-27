@@ -62,13 +62,14 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 //                    String id = ctx.formParam("id");
                     //Crea una variable que cargue el id generado en la clase Registro con String.valueOf(++contador)
                     String id = String.valueOf(fakeServices.getContadorRegistros());
+                    String nombre = ctx.formParam("nombre");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
-                    Registro registro = new Registro(id, usuario.getNombre(), sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
+                    Registro registro = new Registro(id, nombre, sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
                     registro.setUsuario(usuario);
 
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registro+"\n\n\n\n\n\n\n\n\n\n");
@@ -79,7 +80,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
 
                 get("/visualizar/{id}", ctx -> {
-                    Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
+                    Registro registro = fakeServices.getRegistroPorId(ctx.pathParam("id"));
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Formulario Visualizar Registro " + registro.getUsuario());
                     modelo.put("visualizar", true);
@@ -114,6 +115,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
                     //obten el id del registro a editar
                     String id = ctx.formParam("id");
+                    String nombre = ctx.formParam("nombre");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
 //                    String latitud = ctx.formParam("latitud");
@@ -125,7 +127,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     //imprime el registro existente
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro existente: " + registroExistente+"\n\n\n\n\n\n\n\n\n\n");
                     if (registroExistente != null) {
-//                        registroExistente.
+                        registroExistente.setNombre(nombre);
                         registroExistente.setSector(sector);
                         registroExistente.setNivelEscolar(nivelEscolar);
 //                        registroExistente.setLatitud(latitud);
