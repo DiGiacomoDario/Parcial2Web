@@ -59,14 +59,14 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                         ctx.redirect("/");
                         return;
                     }
-
+                    String id = ctx.formParam("id");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
 
-                    Registro registro = new Registro("", usuario.getNombre(), sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
+                    Registro registro = new Registro(id, usuario.getNombre(), sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
                     registro.setUsuario(usuario);
 
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registro+"\n\n\n\n\n\n\n\n\n\n");
@@ -88,10 +88,10 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
 
                 get("/editar/{id}", ctx -> {
-                    Registro registro = fakeServices.getRegistroPorId(((ctx.pathParam("id"))));
+                    Registro registro = fakeServices.getRegistroPorId(ctx.pathParamAsClass("id", String.class).get());
                     //
                     Map<String, Object> modelo = new HashMap<>();
-                    modelo.put("titulo", "Formulario Editar Registro " + registro.getUsuario());
+                    modelo.put("titulo", "FORMULARIO EDITAR REGISTRO: " + registro.getUsuario().getNombre());
                     modelo.put("registro", registro);
                     modelo.put("accion", "/crud-simple-registro/editar");
 
@@ -101,25 +101,27 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 
                 post("/editar", ctx -> {
 
-                    String username = ctx.formParam("username");
-                    String nombre = ctx.formParam("nombre");
-                    String password = ctx.formParam("password");
+//                    String username = ctx.formParam("username");
+//                    String nombre = ctx.formParam("nombre");
+//                    String password = ctx.formParam("password");
 
                     String id = (ctx.formParam("id"));
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
-                    String latitud = ctx.formParam("latitud");
-                    String longitud = ctx.formParam("longitud");
-                    boolean estado = ctx.formParam("estado") != null;
-
+//                    String latitud = ctx.formParam("latitud");
+//                    String longitud = ctx.formParam("longitud");
+//                    boolean estado = ctx.formParam("estado") != null;
+                    System.out.println("\n\n\n\n\n\n\n\n\nRegistro existente: " + id+"\n\n\n\n\n\n\n\n\n\n");
                     Registro registroExistente = fakeServices.getRegistroPorId(id);
-
+                    //imprime el registro existente
+                    System.out.println("\n\n\n\n\n\n\n\n\nRegistro existente: " + registroExistente+"\n\n\n\n\n\n\n\n\n\n");
                     if (registroExistente != null) {
-                        registroExistente.setSector(nombre);
+//                        registroExistente.
+                        registroExistente.setSector(sector);
                         registroExistente.setNivelEscolar(nivelEscolar);
-                        registroExistente.setLatitud(latitud);
-                        registroExistente.setLongitud(longitud);
-                        registroExistente.setEstado(estado);
+//                        registroExistente.setLatitud(latitud);
+//                        registroExistente.setLongitud(longitud);
+//                        registroExistente.setEstado(estado);
                         fakeServices.actualizarRegistro(registroExistente);
                     } else {
                         System.out.println("No se encontró el registro con el id: " + id);

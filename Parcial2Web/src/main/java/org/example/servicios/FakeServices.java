@@ -66,15 +66,19 @@ public class FakeServices {
 
 
 
-    //crea el metodo getRegistroPorId  que recibe un int id y retorna un objeto de tipo Registro
-
+    //crea el metodo getRegistroPorId que recibe un String id y retorna un objeto de tipo Registro
+    /*public Registro getRegistroPorId(String id) {
+        return registros.stream()
+                .filter(u -> u.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }*/
     public Registro getRegistroPorId(String id) {
         return registros.stream()
-                .filter(u -> Objects.equals(u.getId(), id))
+                .filter(u -> u.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
-
 
     //crea el metodo actualizarRegistro que recibe un objeto de tipo Registro y retorna un objeto de tipo Object
 

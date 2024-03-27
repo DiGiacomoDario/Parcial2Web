@@ -77,7 +77,7 @@ public class ApiControlador extends BaseControlador {
                     });
 //solo para un nuevo commit
                     get("/{id}", ctx -> {
-                        ctx.json(fakeServices.getRegistroPorId((ctx.pathParamAsClass("id", String.class).get())));
+                        ctx.json(fakeServices.getRegistroPorId(ctx.pathParamAsClass("id", String.class).get()));
                     });
 
 
