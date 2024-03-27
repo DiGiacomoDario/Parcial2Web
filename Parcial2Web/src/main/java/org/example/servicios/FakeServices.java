@@ -64,8 +64,6 @@ public class FakeServices {
     }
 
 
-
-
     //crea el metodo getRegistroPorId que recibe un String id y retorna un objeto de tipo Registro
     /*public Registro getRegistroPorId(String id) {
         return registros.stream()
@@ -112,6 +110,22 @@ public class FakeServices {
     //crea el metodo listarRegistros que retorna una lista de objetos de tipo Registro
     public List<Registro> listarRegistros() {
         return new ArrayList<>(registros);
+    }
+
+
+    //Crea la clase generarIdRegistro que retorna un String
+    public String generarIdRegistro() {
+        return String.valueOf(UUID.randomUUID());
+    }
+
+    //crea getContadorRegistros
+    public long getContadorRegistros() {
+//si registros.size es null entonces retorna 1
+        if (registros.size() == 0) {
+            return 1;
+        }
+        return registros.size();
+
     }
 /*
     //crea el metodo autenticarRegistro que reciba

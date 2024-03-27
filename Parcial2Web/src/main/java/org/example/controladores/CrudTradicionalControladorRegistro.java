@@ -59,7 +59,9 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                         ctx.redirect("/");
                         return;
                     }
-                    String id = ctx.formParam("id");
+//                    String id = ctx.formParam("id");
+                    //Crea una variable que cargue el id generado en la clase Registro con String.valueOf(++contador)
+                    String id = String.valueOf(fakeServices.getContadorRegistros());
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
                     String latitud = ctx.formParam("latitud");
@@ -105,7 +107,13 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 //                    String nombre = ctx.formParam("nombre");
 //                    String password = ctx.formParam("password");
 
-                    String id = (ctx.formParam("id"));
+                    //String id = String.valueOf(fakeServices.getContadorRegistros());
+               /*     if (id == null) {
+                        id = "1";
+                    }*/
+
+                    //obten el id del registro a editar
+                    String id = ctx.formParam("id");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
 //                    String latitud = ctx.formParam("latitud");
@@ -113,6 +121,7 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
 //                    boolean estado = ctx.formParam("estado") != null;
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro existente: " + id+"\n\n\n\n\n\n\n\n\n\n");
                     Registro registroExistente = fakeServices.getRegistroPorId(id);
+
                     //imprime el registro existente
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro existente: " + registroExistente+"\n\n\n\n\n\n\n\n\n\n");
                     if (registroExistente != null) {

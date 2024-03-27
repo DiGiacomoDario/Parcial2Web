@@ -11,8 +11,7 @@
     </div>
 
     <form enctype="application/x-www-form-urlencoded" method="post" th:attr="action=${accion}" >
-
-
+        <input type="hidden" th:if="${registro != null}" th:value="${registro.id}" name="id"/>
         <div class="form-group">
             <label for="nombreForm">Nombre:</label>
             <input th:readonly="${visualizar}" th:value="${registro} ? ${registro.usuario.nombre} : ''" type="text" name="nombre" class="form-control" id="nombreForm" required>
