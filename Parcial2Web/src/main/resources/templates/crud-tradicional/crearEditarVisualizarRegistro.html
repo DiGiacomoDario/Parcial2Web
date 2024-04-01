@@ -30,7 +30,8 @@
                 <option>Doctorado</option>
             </select>
         </div>
-
+        <input type="hidden" id="latitud" name="latitud">
+        <input type="hidden" id="longitud" name="longitud">
         <button th:type="submit" class="btn btn-primary btn-block">Guardar</button>
         <a href="/crud-simple-registro/listar" class="btn btn-primary btn-block">Registros</a>
         <a href="/inicio" class="btn btn-secondary btn-block">Atr&aacute;s</a>
@@ -41,6 +42,20 @@
 <div th:replace="/templates/crud-tradicional/plantilla.html::javascript">
 
 </div>
+
+<script>
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('latitud').value = position.coords.latitude;
+                document.getElementById('longitud').value = position.coords.longitude;
+                console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+</script>
 
 </body>
 </html>

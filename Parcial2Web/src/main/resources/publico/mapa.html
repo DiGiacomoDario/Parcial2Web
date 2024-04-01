@@ -1,43 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Mapa</title>
-    <style>
-
-        #map {
-            height: 700px;
-            width: 100%;
-        }
-    </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <div id="map">
-
-    </div>
-
+    <title>Mapa con Coordenadas</title>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF1SFoX6uygyMiG63A-bRn4RqYgz48sQo&libraries=places&callback=initMap"></script>
     <script>
-        function initMap(){
-            var coord = {lat:19.443552 ,lng: -70.683573};
-            var map = new google.maps.Map(document.getElementById('map'),{
-                zoom: 10,
-                center: coord
+        // Arreglo global para almacenar las coordenadas
+        var coordenadas = [];
+
+        // Función para cargar las coordenadas desde el servidor
+        function cargarCoordenadas() {
+            fetch('/crud-simple-registro/coordenadas') // Solicitamos las coordenadas al servidor
+                .then(response => response.json())
+                .then(data => {
+                    coordenadas = data; // Almacenamos las coordenadas en el arreglo global
+                    initMap(); // Inicializamos el mapa con las coordenadas obtenidas
+                })
+                .catch(error => console.error('Error al obtener coordenadas:', error));
+        }
+
+        // Función para inicializar el mapa
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 18.864919, lng: -70.640039},
+                zoom: 8
             });
-            var marker = new google.maps.Marker({
-                position: coord,
-                map: map
+
+            // Iterar sobre todas las coordenadas y colocar un marcador en el mapa ,
+            coordenadas.forEach(function(coordenada) {
+                var marker = new google.maps.Marker({
+                    position: {lat: coordenada.latitud, lng: coordenada.longitud},
+                    map: map
+                });
             });
         }
     </script>
+</head>
+<body onload="cargarCoordenadas()"> <!-- Llamamos a cargarCoordenadas() cuando se carga la página -->
+<div id="map" style="height: 900px; width: 100%;"></div>
 
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF1SFoX6uygyMiG63A-bRn4RqYgz48sQo&libraries=places&callback=initMap"
 
-    ></script>
-    <div class="center-button">
-        <button class="btn btn-primary btn-lg" onclick="window.history.back();">Atrás</button>
-    </div>
-
+<a href="/inicio" class="btn btn-primary">Atr&aacute;s</a>
 </body>
 </html>

@@ -106,7 +106,6 @@ public class FakeServices {
         return registro;
     }
 
-
     //crea el metodo listarRegistros que retorna una lista de objetos de tipo Registro
     public List<Registro> listarRegistros() {
         return new ArrayList<>(registros);
@@ -126,6 +125,10 @@ public class FakeServices {
         }
         return registros.size();
 
+    }
+
+    public List<Registro> getAllRegistros() {
+    return new ArrayList<>(registros);
     }
 /*
     //crea el metodo autenticarRegistro que reciba

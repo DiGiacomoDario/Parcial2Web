@@ -2,12 +2,14 @@
 package org.example.controladores;
 
 
+import org.example.clases.Coordenada;
 import org.example.clases.Registro;
 import org.example.clases.Usuario;
 import org.example.servicios.FakeServices;
 import org.example.util.BaseControlador;
 import io.javalin.Javalin;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -60,16 +62,24 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                         return;
                     }
 //                    String id = ctx.formParam("id");
-                    //Crea una variable que cargue el id generado en la clase Registro con String.valueOf(++contador)
                     String id = String.valueOf(fakeServices.getContadorRegistros());
+                    Registro registroExistente = fakeServices.getRegistroPorId(id);
+                    if (registroExistente != null) {
+                        String latitud = ctx.formParam("latitud");
+                        String longitud = ctx.formParam("longitud");
+                        registroExistente.setLatitud(latitud);
+                        registroExistente.setLongitud(longitud);
+                    } else {
+                        System.out.println("No se encontró el registro con el id: " + id);
+                    }
+
                     String nombre = ctx.formParam("nombre");
                     String sector = ctx.formParam("sector");
                     String nivelEscolar = ctx.formParam("nivelEscolar");
                     String latitud = ctx.formParam("latitud");
                     String longitud = ctx.formParam("longitud");
                     boolean estado = ctx.formParam("estado") != null;
-
-                    Registro registro = new Registro(id, nombre, sector, nivelEscolar, usuario.getUsername(), "18", "19", estado);
+                    Registro registro = new Registro(id, nombre, sector, nivelEscolar, usuario.getUsername(), latitud, longitud, estado);
                     registro.setUsuario(usuario);
 
                     System.out.println("\n\n\n\n\n\n\n\n\nRegistro: " + registro+"\n\n\n\n\n\n\n\n\n\n");
@@ -88,6 +98,14 @@ public class CrudTradicionalControladorRegistro extends BaseControlador {
                     ctx.render("/templates/crud-tradicional/crearEditarVisualizarRegistro.html", modelo);
                 });
 
+                // Ruta para obtener las coordenadas almacenadas
+                get("/coordenadas", ctx -> {
+                    List<Registro> registros = fakeServices.getAllRegistros();
+                    List<Coordenada> coordenadas = registros.stream()
+                            .map(r -> new Coordenada(Double.parseDouble(r.getLatitud()), Double.parseDouble(r.getLongitud())))
+                            .collect(Collectors.toList());
+                    ctx.json(coordenadas);
+                });
 
 
                 get("/editar/{id}", ctx -> {
