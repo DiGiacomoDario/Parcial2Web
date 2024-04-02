@@ -1,17 +1,31 @@
 package org.example.clases;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+
+@Entity
 public class Usuario {
+    @Id
+    @Column(name = "username")
+    private String username;
 
-    String username;
-    String nombre;
-    String password;
+    @Column(name = "nombre")
+    private String nombre;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "admintrator")
     protected boolean admintrator;
 
+    @Column(name = "usuario")
     protected boolean usuario;
-
 
 
 
@@ -32,6 +46,10 @@ public class Usuario {
         this.password = usuario;
 
     }
+
+    public Usuario(String s) {
+    }
+
 
 
     public String getUsername() {

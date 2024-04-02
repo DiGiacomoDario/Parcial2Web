@@ -1,20 +1,22 @@
-
 package org.example.controladores;
 
-
 import org.example.clases.Usuario;
-import org.example.servicios.FakeServices;
 import org.example.util.BaseControlador;
 import io.javalin.Javalin;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import java.util.*;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class CrudTradicionalControladorUsuario extends BaseControlador {
+    EntityManagerFactory emf;
+    EntityManager em;
 
-    FakeServices fakeServices = FakeServices.getInstancia();
-    public CrudTradicionalControladorUsuario(Javalin app) {
+    public CrudTradicionalControladorUsuario(Javalin app, EntityManager em) {
         super(app);
+        this.em = em;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                 });
 
                 get("/listar", ctx -> {
-                    List<Usuario> lista = fakeServices.listarUsuarios();
+                    List<Usuario> lista = em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Listado de USUARIOS");
                     modelo.put("lista", lista);
@@ -46,12 +48,13 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     String nombre = ctx.formParam("nombre");
                     String password = ctx.formParam("password");
 
-
                     boolean admintrator = ctx.formParam("admintrator") != null;
                     boolean usuario = ctx.formParam("usuario") != null;
 
                     Usuario usuarios = new Usuario(username, nombre, password, admintrator, usuario);
-                    fakeServices.crearUsuario(usuarios);
+                    em.getTransaction().begin();
+                    em.persist(usuarios);
+                    em.getTransaction().commit();
                     ctx.redirect("/crud-simple-usuario/");
                 });
 
@@ -67,18 +70,18 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     String nombre = ctx.formParam("nombre");
                     String password = ctx.formParam("password");
 
-
                     boolean admintrator = ctx.formParam("admintrator") != null;
                     boolean usuario = ctx.formParam("usuario") != null;
 
                     Usuario usuarios = new Usuario(username, nombre, password, admintrator, usuario);
-                    fakeServices.crearUsuario(usuarios);
+                    em.getTransaction().begin();
+                    em.persist(usuarios);
+                    em.getTransaction().commit();
                     ctx.redirect("/");
                 });
 
-
                 get("/visualizar/{username}", ctx -> {
-                    Usuario usuario = fakeServices.getUsuarioPorUsername(ctx.pathParam("username"));
+                    Usuario usuario = em.find(Usuario.class, ctx.pathParam("username"));
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Formulario Visualizar Usuario " + usuario.getUsername());
                     modelo.put("usuario", usuario);
@@ -87,38 +90,32 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     ctx.render("/templates/crud-tradicional/crearEditarVisualizarUsuario.html", modelo);
                 });
 
-
-
                 get("/editar/{username}", ctx -> {
-                    Usuario usuario = fakeServices.getUsuarioPorUsername(ctx.pathParamAsClass("username", String.class).get());
-                    //
+                    Usuario usuario = em.find(Usuario.class, ctx.pathParam("username"));
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Formulario Editar Usuario " + usuario.getUsername());
                     modelo.put("usuario", usuario);
                     modelo.put("accion", "/crud-simple-usuario/editar");
-
-
                     ctx.render("/templates/crud-tradicional/crearEditarVisualizarUsuario.html", modelo);
                 });
 
                 post("/editar", ctx -> {
-
                     String username = ctx.formParam("username");
                     String nombre = ctx.formParam("nombre");
                     String password = ctx.formParam("password");
 
-
                     boolean admintrator = ctx.formParam("admintrator") != null;
                     boolean usuario = ctx.formParam("usuario") != null;
-                    Usuario usuarioExistente = fakeServices.getUsuarioPorUsername(username);
+                    Usuario usuarioExistente = em.find(Usuario.class, username);
 
                     if (usuarioExistente != null) {
-
                         usuarioExistente.setNombre(nombre);
                         usuarioExistente.setPassword(password);
                         usuarioExistente.setAdmintrator(admintrator);
                         usuarioExistente.setUsuario(usuario);
-                        fakeServices.actualizarUsuario(usuarioExistente);
+                        em.getTransaction().begin();
+                        em.merge(usuarioExistente);
+                        em.getTransaction().commit();
                     } else {
                         System.out.println("No se encontró el usuario con el username: " + username);
                     }
@@ -126,16 +123,18 @@ public class CrudTradicionalControladorUsuario extends BaseControlador {
                     ctx.redirect("/crud-simple-usuario/");
                 });
 
-
-
-
-
                 get("/eliminar/{username}", ctx -> {
-                    fakeServices.eliminandoUsuario(ctx.pathParam("username"));
+                    Usuario usuario = em.find(Usuario.class, ctx.pathParam("username"));
+                    if (usuario != null) {
+                        em.getTransaction().begin();
+                        em.remove(usuario);
+                        em.getTransaction().commit();
+                    }
                     ctx.redirect("/crud-simple-usuario/");
                 });
 
             });
+
         });
     }
 }
