@@ -1,31 +1,39 @@
 package org.example;
+
 import io.javalin.Javalin;
 
 import java.util.*;
 
 import io.javalin.http.staticfiles.Location;
 
+import io.javalin.security.RouteRole;
 import org.example.clases.Registro;
 import org.example.clases.Usuario;
 import org.example.controladores.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.*;
 import org.example.servicios.FakeServices;
-
 
 
 public class Main {
 
-    static FakeServices fakeServices = FakeServices.getInstancia();
+    private static String modoConexion = "";
+
+    enum Rules implements RouteRole {
+        ANONYMOUS,
+        USER,
+    }
 
     public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("parcial2");
+        EntityManager em = emf.createEntityManager();
 
         Javalin app = Javalin.create(config -> {
-
             config.staticFiles.add(staticFileConfig -> {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/publico";
                 staticFileConfig.location = Location.CLASSPATH;
-                staticFileConfig.precompress = false;
-                staticFileConfig.aliasCheck = null;
             });
         });
         app.start(getHerokuAssignedPort());
@@ -49,105 +57,60 @@ public class Main {
 
         });
 
-        app.post("/autenticar", ctxContext -> {
-            String nombreUsuario = ctxContext.formParam("usuario");
-            String password = ctxContext.formParam("password");
-            Usuario usuario = fakeServices.autenticarUsuario(nombreUsuario, password);
+        app.post("/autenticar", ctx -> {
+            String nombreUsuario = ctx.formParam("usuario");
+            String password = ctx.formParam("password");
+            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class);
+            query.setParameter("username", nombreUsuario);
+            query.setParameter("password", password);
+            Usuario usuario = query.getSingleResult();
             if (usuario != null) {
-                ctxContext.sessionAttribute("usuario", usuario);
+                ctx.sessionAttribute("usuario", usuario);
                 System.out.println("\n\n\n\n\n\nUsuario autenticado: " + usuario);
-                ctxContext.redirect("/inicio"); // Redirigir al usuario a la página de inicio
+                ctx.redirect("/inicio"); // Redirigir al usuario a la página de inicio
             } else {
-                ctxContext.redirect("/");
+                ctx.redirect("/");
             }
         });
 
         app.get("/visualizar/{id}", ctx -> {
-
-            // Articulo articulo = fakeServices.getArticuloPorId(ctx.pathParamAsClass("id", long.class).get());
-
-            //List<Etiqueta> etiquetas = articulo.getListaEtiquetas();
+            String id = ctx.pathParam("id");
+            TypedQuery<Registro> query = em.createQuery("SELECT r FROM Registro r WHERE r.id = :id", Registro.class);
+            query.setParameter("id", id);
+            Registro registro = query.getSingleResult();
 
             Usuario usuarioLogueado = ctx.sessionAttribute("usuario");
             if (usuarioLogueado != null) {
-
                 System.out.println("\n\n\n\n\n\nUsuario autenticado: " + usuarioLogueado.getUsername());
             } else {
                 System.out.println("\n\n\nNo hay usuario autenticado\n\n\n");
             }
 
-
             Map<String, Object> modelo = new HashMap<>();
-            // modelo.put("titulo", "Articulo " + articulo.getId());
-            // modelo.put("articulo", articulo);
             modelo.put("usuarioLogueado", usuarioLogueado);
-
-
+            modelo.put("registro", registro);
             modelo.put("visualizar", true);
 
-
-            //modelo.put("accion", "/visualizar/" + articulo.getId() + "/comentar");
-
-
             ctx.render("/publico/vistaArticulo.html", modelo);
-
-
-        });
-
-        app.post("/visualizar/{id}/comentar", ctx -> {
-
-            //  Articulo articulo = fakeServices.getArticuloPorId(ctx.pathParamAsClass("id", long.class).get());
-
-            ;
-
-            long id = 0;
-            id++;
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+id+"\n\n\n\n\n\n\n\n\n\n\n\n");
-
-
-            Usuario usuario = ctx.sessionAttribute("usuario");
-
-            String comentario = ctx.formParam("comentario");
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+comentario+"\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n"+usuario.getUsername()+"\n\n\n\n\n\n\n\n\n\n\n\n");
-
-
-            // Comentario nuevoComentario = new Comentario(id,comentario, usuario, articulo);
-
-
-            // articulo.getListaComentarios().add(nuevoComentario);
-
-            System.out.println("\n\n\n\n\n\nn\n\n\n\n\n\n");
-
-            // ctx.redirect("/visualizar/" + articulo.getId());
         });
 
         app.get("/eliminar/{id}", ctx -> {
-            //   fakeServices.eliminandoArticulo(ctx.pathParamAsClass("id", Integer.class).get());
+            String id = ctx.pathParam("id");
+            em.getTransaction().begin();
+            Registro registro = em.find(Registro.class, id);
+            if (registro != null) {
+                em.remove(registro);
+            }
+            em.getTransaction().commit();
             ctx.redirect("/inicio/");
         });
 
+        //new RecibirDatosControlador(app).aplicarRutas();
+        new CookiesSesionesControlador(app, em).aplicarRutas();
+        //new ApiControlador(app).aplicarRutas();
 
-
-
-
-        new RecibirDatosControlador(app).aplicarRutas();
-
-        new CookiesSesionesControlador(app).aplicarRutas();
-
-
-
-
-
-        new ApiControlador(app).aplicarRutas();
-
-
-
-
-        new CrudTradicionalControladorUsuario(app).aplicarRutas();
-        new CrudTradicionalControladorRegistro(app).aplicarRutas();
-
-
+        new CrudTradicionalControladorRegistro(app, em).aplicarRutas();
+        new CrudTradicionalControladorUsuario(app, em).aplicarRutas();
     }
 
 
@@ -159,7 +122,13 @@ public class Main {
         return 7000;
     }
 
-
+    /**
+     * Nos
+     * @return
+     */
+    public static String getModoConexion(){
+        return modoConexion;
+    }
 
 
 

@@ -92,7 +92,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.activation/jakarta.activation-api/1.2.1/562a587face36ec7eff2db7f2fc95425c6602bc1/jakarta.activation-api-1.2.1.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla/rhino/1.7.7.2/a7c4a9ba8b6922374580d71060ef71eafa994256/rhino-1.7.7.2.jar" />
         </processorPath>
-        <module name="Parcial2Web.Parcial2Web.main~1" />
+        <module name="Parcial2Web.main" />
       </profile>
     </annotationProcessing>
   </component>

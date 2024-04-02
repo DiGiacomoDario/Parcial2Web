@@ -1,25 +1,44 @@
 package org.example.clases;
 
-public class Registro{
-    private static long contador = 0;
-    String id;
-    String nombre;
-    String sector;
-    String nivelEscolar;
 
-    String user;
-    String latitud;
-    String longitud;
-    boolean estado;
-    Usuario usuario = new Usuario();
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "registros")
+public class Registro {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "sector")
+    private String sector;
+
+    @Column(name = "nivel_escolar")
+    private String nivelEscolar;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "latitud")
+    private String latitud;
+
+    @Column(name = "longitud")
+    private String longitud;
+
+    @Column(name = "estado")
+    private boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
 
 
     //crea el constructor
-
-
-    public Registro(String id,String nombre,String sector, String nivelEscolar,String user ,String latitud, String longitud, boolean estado) {
-
-        this.id = String.valueOf(++contador);
+    public Registro(String nombre,String sector, String nivelEscolar,String username ,String latitud, String longitud, boolean estado) {
         this.nombre = nombre;
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
@@ -27,6 +46,10 @@ public class Registro{
         this.latitud = latitud;
         this.longitud = longitud;
         this.estado = estado;
+    }
+
+    public Registro() {
+
     }
 
     // Resto del código de la clase Registro
@@ -41,11 +64,11 @@ public class Registro{
         this.usuario = usuario;
     }
     //getters y setters
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,6 +80,14 @@ public class Registro{
         this.nombre = nombre;
     }
 
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getSector() {
         return sector;
     }
@@ -104,12 +135,12 @@ public class Registro{
                 ", nombre='" + nombre + '\'' +
                 ", sector='" + sector + '\'' +
                 ", nivelEscolar='" + nivelEscolar + '\'' +
-                ", user='" + user + '\'' +
+                ", username='" + username + '\'' +
                 ", latitud='" + latitud + '\'' +
                 ", longitud='" + longitud + '\'' +
                 ", estado=" + estado +
-                '}';
-    }
+               '}';
+}
 
 
 
