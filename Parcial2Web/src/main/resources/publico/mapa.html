@@ -22,14 +22,14 @@
         // Función para inicializar el mapa
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 18.864919, lng: -70.640039},
+                center: {lat: parseFloat(coordenadas[0].latitud), lng: parseFloat(coordenadas[0].longitud)},
                 zoom: 8
             });
 
-            // Iterar sobre todas las coordenadas y colocar un marcador en el mapa ,
+            // Iterar sobre todas las coordenadas y colocar un marcador en el mapa
             coordenadas.forEach(function(coordenada) {
                 var marker = new google.maps.Marker({
-                    position: {lat: coordenada.latitud, lng: coordenada.longitud},
+                    position: {lat: parseFloat(coordenada.latitud), lng: parseFloat(coordenada.longitud)},
                     map: map
                 });
             });
